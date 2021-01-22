@@ -90,4 +90,12 @@ public class AdminPagesController {
         }
         return "redirect:/admin/pages/edit/" + page.getId();
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable int id, RedirectAttributes redirectAttributes, Model model) {
+        pageRepo.deleteById(id);
+        redirectAttributes.addFlashAttribute("message", "Page deleted");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+        return "redirect:/admin/pages";
+    }
 }
