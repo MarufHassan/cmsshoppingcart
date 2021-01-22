@@ -58,4 +58,11 @@ public class AdminPagesController {
         }
         return "redirect:/admin/pages/add";
     }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable int id, Model model) {
+        Page page = pageRepo.getOne(id);
+        model.addAttribute("page", page);
+        return "/admin/pages/edit";
+    }
 }
