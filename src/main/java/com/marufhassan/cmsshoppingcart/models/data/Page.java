@@ -25,5 +25,5 @@ public class Page {
     @Size(min = 5, message = "Content must be 5 characters long")
     private String content;
 
-    private String sorting;
+    private int sorting;
 }
