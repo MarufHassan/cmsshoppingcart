@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,7 +33,6 @@ public class AdminPagesController {
 
     @GetMapping("/add")
     public String add(@ModelAttribute Page page) {
-        //model.addAttribute("page", new Page());
         return "admin/pages/add";
     }
 
@@ -42,14 +42,15 @@ public class AdminPagesController {
             return "admin/pages/add";
         }
         redirectAttributes.addFlashAttribute("message", "Page added");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-sucess");
-
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+        
         String slug = page.getSlug() == "" ? page.getTitle().toLowerCase().replace(" ", "-") : page.getSlug().toLowerCase().replace(" ", "-");
         Page slugExists = pageRepo.findBySlug(slug);
 
         if (slugExists != null) {
             redirectAttributes.addFlashAttribute("message", "Slug exists, choose another");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            redirectAttributes.addFlashAttribute("page", page);
         } else {
             page.setSlug(slug);
             page.setSorting(100);

@@ -8,6 +8,9 @@
     <div class="container  mb-5">
         <h1 class="display-2">Add a page</h1>
         <a href="/admin/pages" class="btn btn-primary mb-5">Back to pages</a>
+
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+
         <form method="post" th:object="${page}" th:action="@{/admin/pages/add}">
             <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                 There are errors
