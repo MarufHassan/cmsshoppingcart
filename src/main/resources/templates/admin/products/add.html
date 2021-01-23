@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <nav th:replace="/fragments/nav :: nav-admin"></nav>
+    <div class="container  mb-5">
+        <h1 class="display-2">Add a product</h1>
+        <a href="/admin/products" class="btn btn-primary mb-5">Back to products</a>
+
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+
+        <form method="post" th:object="${product}" th:action="@{/admin/products/add}" enctype="multipart/form-data">
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                There are errors
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="">Name</label>
+                <input type="text" class="form-control" th:field="*{name}" placeholder="Name"></input>
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="">Description</label>
+                <textarea th:field="*{description}" rows="10" class="form-control" placeholder="description"></textarea>
+                <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            </div>
+            <div class="form-group mb-3">
+                <input type="file" class="form-control" th:name="file">
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="">Price</label>
+                <input type="text" class="form-control" th:field="*{price}" placeholder="20 or 20.99"></input>
+                <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="">Category</label>
+                <select th:field="${categoryId}" class="form-control">
+                    <option th:value="0">Choose a category</option>
+                    <option th:each="cat: ${categories}" th:value="{cat.id}" th:text="${cat.name}"></option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></span>
+            </div>
+
+            <button class="btn btn-danger mb-3">Add</button>
+        </form>
+    <div th:replace="/fragments/footer :: footer"></nav>
+</body>
+
+</html>

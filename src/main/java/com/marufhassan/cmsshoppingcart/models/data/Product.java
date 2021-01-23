@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,20 +24,24 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Size(min = 2, message = "Name must be at least 2 characters long")
     private String name;
 
     private String slug;
 
+    @Size(min = 5, message = "Description must be at least 5 characters long")
     private String description;
 
     private String image;
 
+    @Pattern(regexp = "^[0-9]+([.][0-9]{1,2})?", message = "Expected format: 5, 5.99, 15, 15.99")
     private String price;
 
+    @Pattern(regexp = "^[1-9][0-9]*", message = "Please choose a category")
     @Column(name = "category_id")
     private String categoryId;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
     

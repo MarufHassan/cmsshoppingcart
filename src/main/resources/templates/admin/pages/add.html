@@ -28,7 +28,7 @@
             </div>
             <div class="form-group mb-3">
                 <label for="">Content</label>
-                <textarea th:field="*{content}" rows="10" class="form-control" placeholder="Control"></textarea>
+                <textarea th:field="*{content}" rows="10" class="form-control" placeholder="Content"></textarea>
                 <span class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
             </div>
             <button class="btn btn-danger mb-3">Add</button>

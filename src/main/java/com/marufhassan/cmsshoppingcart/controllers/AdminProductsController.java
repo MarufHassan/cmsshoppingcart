@@ -2,7 +2,9 @@ package com.marufhassan.cmsshoppingcart.controllers;
 
 import java.util.List;
 
+import com.marufhassan.cmsshoppingcart.models.CategoryRepository;
 import com.marufhassan.cmsshoppingcart.models.ProductRepository;
+import com.marufhassan.cmsshoppingcart.models.data.Category;
 import com.marufhassan.cmsshoppingcart.models.data.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,20 @@ public class AdminProductsController {
     @Autowired
     private ProductRepository productRepo;
 
+    @Autowired
+    private CategoryRepository categoryRepo;
+
     @GetMapping
     public String index(Model model) {
         List<Product> products = productRepo.findAll();
         model.addAttribute("products", products);
         return "admin/products/index";
+    }
+
+    @GetMapping("/add")
+    public String add(Product product, Model model) {
+        List<Category> categories = categoryRepo.findAll();
+        model.addAttribute("categories", categories);
+        return "admin/products/add";
     }
 }
