@@ -20,8 +20,8 @@
                 </tr>
                 <tr th:each="category: ${categories}" th:id="'id_' + ${category.id}">
                     <td th:text="${category.name}"></td>
-                    <td><a th:href="@{'/admin/category/edit/' + ${category.id}}">Edit</a></td>
-                    <td><a th:href="@{'/admin/category/delete/' + ${category.id}}" class="confirmDeletion">Delete</a></td>
+                    <td><a th:href="@{'/admin/categories/edit/' + ${category.id}}">Edit</a></td>
+                    <td><a th:href="@{'/admin/categories/delete/' + ${category.id}}" class="confirmDeletion">Delete</a></td>
                 </tr>
             </table>
         </div>
