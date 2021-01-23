@@ -18,7 +18,7 @@
 
             <div class="form-group mb-3">
                 <label for="">Title</label>
-                <input type="text" class="form-control" th:field="*{title}" th:value="${page.title}" placeholder="Title"></input>
+                <input type="text" class="form-control" th:field="*{title}" placeholder="Title"></input>
                 <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
             </div>
             <div class="form-group mb-3" th:classappend="${page.slug == 'home'} ? 'd-none' : ''">

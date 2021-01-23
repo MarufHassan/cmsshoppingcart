@@ -18,7 +18,7 @@
 
             <div class="form-group mb-3">
                 <label for="">Name</label>
-                <input type="text" class="form-control" th:field="*{name}" th:value="${category.name}" placeholder="Name"></input>
+                <input type="text" class="form-control" th:field="*{name}" placeholder="Name"></input>
                 <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
 
