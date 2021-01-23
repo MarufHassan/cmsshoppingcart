@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <nav th:replace="/fragments/nav :: nav-admin"></nav>
+    <div class="container">
+        <h1 class="display-2">Categories</h1>
+        <a href="/admin/categories/add" class="btn btn-primary mb-5">Add new</a>
+
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+
+        <div th:if="${!categories.empty}">
+            <table class="table sorting" id="pages">
+                <tr class="home">
+                    <th>Name</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tr th:each="category: ${categories}" th:id="'id_' + ${category.id}">
+                    <td th:text="${category.name}"></td>
+                    <td><a th:href="@{'/admin/category/edit/' + ${category.id}}">Edit</a></td>
+                    <td><a th:href="@{'/admin/category/delete/' + ${category.id}}" class="confirmDeletion">Delete</a></td>
+                </tr>
+            </table>
+        </div>
+        <div th:unless="${!categories.empty}">
+            <h4 class="display-4">There are no categories at the moment</h4>
+        </div>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></div>
+    
+    <script>
+        $("table#pages tbody").sortable({
+            items: "tr:not(.home)",
+            placeholder: "ui-state-highlight",
+            update: function() {
+                let ids = $("table#pages tbody").sortable("serialize");
+                let url = "/admin/pages/reorder";
+
+                $.post(url, ids, function(data) {
+                    console.log(data);
+                })
+            }
+        });
+    </script>
+
+</body>
+
+</html>
