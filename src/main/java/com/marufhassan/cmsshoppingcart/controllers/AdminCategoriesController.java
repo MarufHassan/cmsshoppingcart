@@ -23,4 +23,9 @@ public class AdminCategoriesController {
         model.addAttribute("categories", categories);
         return "admin/categories/index";
     }
+
+    @GetMapping("/add")
+    public String add(Category category) {
+        return "admin/categories/add";
+    }
 }
