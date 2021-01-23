@@ -47,7 +47,11 @@ public class AdminProductsController {
     }
 
     @PostMapping("/add")
-    public String add(@Valid Product product, BindingResult bindingResult, MultipartFile file, RedirectAttributes redirectAttributes, Model model) throws IOException{
+    public String add(@Valid Product product, 
+            BindingResult bindingResult, 
+            MultipartFile file, 
+            RedirectAttributes redirectAttributes, 
+            Model model) throws IOException{
         if (bindingResult.hasErrors()) {
             return "admin/categories/add";
         }
@@ -55,9 +59,9 @@ public class AdminProductsController {
         boolean fileOK = false;
         byte[] bytes = file.getBytes();
         String filename = file.getOriginalFilename();
-        Path path = Paths.get("src/main/resources/static");
+        Path path = Paths.get("src/main/resources/static/media/" + filename);
 
-        if (filename.endsWith("jpg") || filename.endsWith("png") {
+        if (filename.endsWith("jpg") || filename.endsWith("png")) {
             fileOK = true;
         }
 
