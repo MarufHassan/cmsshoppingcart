@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -35,7 +37,15 @@ public class AdminProductsController {
     @GetMapping
     public String index(Model model) {
         List<Product> products = productRepo.findAll();
+        List<Category> categories = categoryRepo.findAll();
+
+        Map<Integer, String> cats = new HashMap<>();
+        for (Category cat : categories) {
+            cats.put(cat.getId(), cat.getName());
+        }
         model.addAttribute("products", products);
+        model.addAttribute("cats", cats);
+
         return "admin/products/index";
     }
 
