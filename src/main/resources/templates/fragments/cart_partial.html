@@ -1,4 +1,4 @@
-<div class="bg-dark text-white p-3 mt-3" th:fragment="cart_partial">
+<div class="bg-dark text-white p-3 mt-3" th:fragment="cart_partial" th:if="${notCartViewPage == null}">
     <div class="cart cartActive" th:if="${cartActive}">
         <p>You have <span th:text="${csize}"></span>items in your cart.</p>
         <p>Total <span th:text="'$' + ${#numbers.formatDecimal(ctotal, 0, 'COMMA', 2, 'POINT')}"></span>items in your cart.</p>

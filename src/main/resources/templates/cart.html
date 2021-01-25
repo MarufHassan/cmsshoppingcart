@@ -26,7 +26,7 @@
                             </td>
                             <td>
                                 <span th:text="${el.value.quantity}"></span>
-                                <a th:href="@{'/cart/add/' + ${el.value.id}}" class="btn btn-success btn-sm">+</a>
+                                <a th:href="@{'/cart/add/' + ${el.value.id} + '?cartPage=true'}" class="btn btn-success btn-sm">+</a>
                                 <a th:href="@{'/cart/subtract/' + ${el.value.id}}" class="btn btn-primary btn-sm">-</a>
                                 <a th:href="@{'/cart/remove/' + ${el.value.id}}" class="btn btn-danger btn-sm">Remove</a>
                             </td>
@@ -35,8 +35,16 @@
                                 th:text="'$' + ${#numbers.formatDecimal(formattedTotal, 0, 'COMMA', 2, 'POINT')}"></td>
                         </tr>
                         <tr>
-                            <td class="text-right" colspan="4"><b>Grand Total</b></td>
+                            <td colspan="4" class="text-right"><b>Grand Total</b></td>
                             <td colspan="1" th:text="'$' + ${#numbers.formatDecimal(ctotal, 0, 'COMMA', 2, 'POINT')}"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="/cart/clear" class="btn btn-danger">Clear Cart</a>
+                            </td>
+                            <td colspan="4" class="text-right">
+                                <a href="#" class="btn btn-success checkout">Checkout</a>
+                            </td>
                         </tr>
                     </table>
                 </div>

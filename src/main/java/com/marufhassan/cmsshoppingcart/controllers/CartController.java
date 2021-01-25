@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/cart")
@@ -24,7 +25,7 @@ public class CartController {
     private ProductRepository productRepo;
 
     @GetMapping("/add/{id}")
-    public String add(@PathVariable int id, HttpSession session, Model model) {
+    public String add(@PathVariable int id, HttpSession session, Model model, @RequestParam(value = "cartPage", required = false) String cartPage) {
         Product product = productRepo.getOne(id);
         if (session.getAttribute("cart") == null) {
             Map<Integer, Cart> cart = new HashMap<>();
@@ -52,6 +53,10 @@ public class CartController {
         model.addAttribute("csize", size);
         model.addAttribute("ctotal", total);
 
+        if (cartPage != null) {
+            return "redirect:/cart/view";
+        }
+
         return "cart_view";
     }
 
@@ -62,6 +67,7 @@ public class CartController {
         }
         Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
         model.addAttribute("cart", cart);
+        model.addAttribute("notCartViewPage", true);
         return "cart";
     }
 }
