@@ -9,3 +9,7 @@ table.sorting tr:not(.home) {
 .ui-state-highlight {
     border: 1px dashed #ccc;
 }
+
+.ck.ck-content {
+    height: 200px;
+}
