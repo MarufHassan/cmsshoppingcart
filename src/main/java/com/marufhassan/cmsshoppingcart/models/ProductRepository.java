@@ -2,8 +2,8 @@ package com.marufhassan.cmsshoppingcart.models;
 
 import com.marufhassan.cmsshoppingcart.models.data.Product;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
