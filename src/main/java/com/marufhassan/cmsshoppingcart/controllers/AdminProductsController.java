@@ -167,4 +167,17 @@ public class AdminProductsController {
         }
         return "redirect:/admin/products/edit/" + product.getId();
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable int id, RedirectAttributes redirectAttributes, Model model) throws IOException {
+        Product product = productRepo.getOne(id);
+        Product currentProduct = productRepo.getOne(product.getId());
+        Path path2 = Paths.get("src/main/resources/static/media/" + currentProduct.getImage());
+        Files.delete(path2);
+
+        productRepo.deleteById(id);
+        redirectAttributes.addFlashAttribute("message", "Product deleted");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+        return "redirect:/admin/products";
+    }
 }
