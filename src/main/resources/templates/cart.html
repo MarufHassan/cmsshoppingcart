@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <nav th:replace="/fragments/nav :: nav-front"></nav>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div th:replace="/fragments/categories"></div>
+            <div class="col"></div>
+                <div class="col-7">
+                    <h2 class="display-4">Cart Overview</h2>
+                    <table class="table">
+                        <tr>
+                            <th>Product</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr th:each="el: ${cart}">
+                            <td th:text="${el.value.name}"></td>
+                            <td>
+                                <img style="width: 100px;" th:src="@{'/media/' + ${el.value.image}}" alt="">
+                            </td>
+                            <td>
+                                <span th:text="${el.value.quantity}"></span>
+                                <a th:href="@{'/cart/add/' + ${el.value.id}}" class="btn btn-success btn-sm">+</a>
+                                <a th:href="@{'/cart/subtract/' + ${el.value.id}}" class="btn btn-primary btn-sm">-</a>
+                                <a th:href="@{'/cart/remove/' + ${el.value.id}}" class="btn btn-danger btn-sm">Remove</a>
+                            </td>
+                            <td th:text="'$' + ${el.value.price}"></td>
+                            <td th:with="formattedTotal=${el.value.price} * ${el.value.quantity}"
+                                th:text="'$' + ${#numbers.formatDecimal(formattedTotal, 0, 'COMMA', 2, 'POINT')}"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="4"><b>Grand Total</b></td>
+                            <td colspan="1" th:text="'$' + ${#numbers.formatDecimal(ctotal, 0, 'COMMA', 2, 'POINT')}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+
+        <hr>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></nav>
+</body>
+
+</html>

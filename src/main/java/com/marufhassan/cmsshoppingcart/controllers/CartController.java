@@ -54,4 +54,14 @@ public class CartController {
 
         return "cart_view";
     }
+
+    @RequestMapping("/view")
+    public String view(HttpSession session, Model model) {
+        if (session.getAttribute("cart") == null) {
+            return "redirect:/";
+        }
+        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
+        model.addAttribute("cart", cart);
+        return "cart";
+    }
 }
