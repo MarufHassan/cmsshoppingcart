@@ -3,6 +3,7 @@ package com.marufhassan.cmsshoppingcart.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.marufhassan.cmsshoppingcart.models.Cart;
@@ -69,5 +70,24 @@ public class CartController {
         model.addAttribute("cart", cart);
         model.addAttribute("notCartViewPage", true);
         return "cart";
+    }
+
+    @GetMapping("/subtract/{id}")
+    public String subtract(@PathVariable int id, HttpSession session, Model model, HttpServletRequest httpServletRequest) {
+        Product product = productRepo.getOne(id);
+        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
+
+        int qty = cart.get(id).getQuantity();
+        if (qty == 1) {
+            cart.remove(id);
+            if (cart.size() == 0) {
+                session.removeAttribute("cart");
+            }
+        } else {
+            cart.put(id, new Cart(id, product.getName(), product.getPrice(), --qty, product.getImage()));
+        }
+
+        String refererLink = httpServletRequest.getHeader("referer");
+        return "redirect:" + refererLink;
     }
 }
