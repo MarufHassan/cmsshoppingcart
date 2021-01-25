@@ -1,5 +1,7 @@
 package com.marufhassan.cmsshoppingcart.models;
 
+import java.util.List;
+
 import com.marufhassan.cmsshoppingcart.models.data.Product;
 
 import org.springframework.data.domain.Page;
@@ -13,4 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Product findBySlugAndIdNot(String slug, int id);
 
 	Page<Product> findAll(Pageable pageable);
+
+	List<Product> findAllByCategoryId(int catid, Pageable pageable);
+
+	long countByCategoryId(int catid);
 }
