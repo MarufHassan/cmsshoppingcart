@@ -20,10 +20,12 @@
                             <h4 th:text="${product.name}"></h4>
                             <div class="desc" th:utext="${product.description}"></div>
                             <p th:text="'$' + ${product.price}"></p>
-                            <div>
+                            <div style="position: relative;">
                                 <p>
-                                    <a href="#">Add to cart</a>
+                                    <a class="btn btn-primary addToCart" th:attr="data-id=${product.id}" th:href="@{'/cart/add/' + ${product.id}}">Add to cart</a>
+                                    <img class="ajaxLoader d-none" src="/images/ajax-loader.gif">
                                 </p>
+                                <div class="btn btn-sm btn-success productAdded hide">Product added!</div>
                             </div>
                         </div>
 

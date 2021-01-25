@@ -13,3 +13,13 @@ table.sorting tr:not(.home) {
 .ck.ck-content {
     height: 200px;
 }
+
+div.productAdded {
+    position: absolute;
+    bottom: 5px;
+    left: 110px;
+}
+
+.hide {
+    display: none;
+}
