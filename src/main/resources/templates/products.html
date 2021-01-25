@@ -53,8 +53,27 @@
 
         <hr>
     </div>
-    <div th:replace="/fragments/footer :: footer">
-        </nav>
+    <div th:replace="/fragments/footer :: footer"></div>
+
+    <script>
+        $("a.addToCart").click(function(e) {
+            e.preventDefault();
+            let $this = $(this);
+            $this.next().removeClass('d-none');
+            let id = $this.attr('data-id');
+            let url = "/cart/add/" + id;
+
+            $.get(url, {}, function(data) {
+                $('div.cart').html(data);
+            }).done(function() {
+                $this.parent().parent().find('div.productAdded').fadeIn();
+                $this.next().addClass('d-none');
+                setTimeout(() => {
+                    $this.parent().parent().find('div.productAdded').fadeOut();
+                }, 100);
+            });
+        });
+    </script>
 </body>
 
 </html>
