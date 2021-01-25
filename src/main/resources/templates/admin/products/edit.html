@@ -6,7 +6,7 @@
 <body>
     <nav th:replace="/fragments/nav :: nav-admin"></nav>
     <div class="container  mb-5">
-        <h1 th:text="'Edit ' + ${product.name}" class="display-2"></h1>
+        <h1 class="display-2" th:text="'Edit ' + (${productName} ? ${productName}: ${product.name} )"></h1>
         <a href="/admin/products" class="btn btn-primary mb-5">Back to products</a>
 
         <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
@@ -50,7 +50,7 @@
                 <span class="error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></span>
             </div>
 
-            <input type="hidden" th:fields="*{id}" th:value="${product.id}">
+            <input type="hidden" th:field="*{id}" th:value="${product.id}">
 
             <button class="btn btn-danger mb-3">Update</button>
         </form>
