@@ -90,4 +90,25 @@ public class CartController {
         String refererLink = httpServletRequest.getHeader("referer");
         return "redirect:" + refererLink;
     }
+
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable int id, HttpSession session, Model model, HttpServletRequest httpServletRequest) {
+        
+        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
+        cart.remove(id);
+        if (cart.size() == 0) {
+            session.removeAttribute("cart");
+        }
+
+        String refererLink = httpServletRequest.getHeader("referer");
+        return "redirect:" + refererLink;
+    }
+
+    @GetMapping("/clear")
+    public String clear(HttpSession session, HttpServletRequest httpServletRequest) {
+        session.removeAttribute("cart");
+
+        String refererLink = httpServletRequest.getHeader("referer");
+        return "redirect:" + refererLink;
+    }
 }
