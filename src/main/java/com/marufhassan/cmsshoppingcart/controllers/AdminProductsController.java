@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -98,5 +99,15 @@ public class AdminProductsController {
             Files.write(path, bytes);
         }
         return "redirect:/admin/products/add";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable int id, Model model) {
+        Product product = productRepo.getOne(id);
+        List<Category> categories = categoryRepo.findAll();
+
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
+        return "/admin/products/edit";
     }
 }
