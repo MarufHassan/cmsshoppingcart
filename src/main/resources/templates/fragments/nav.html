@@ -49,5 +49,9 @@
                 <a class="nav-link" href="/admin/products">Products</a>
             </li>
         </ul>
+        <form class="float-right" th:if="${principal != null}" method="post" th:action="@{/logout}">
+            <span class="text-white" th:text="${'Hi ' + principal}"></span>
+            <button class="btn btn-secondary">Logout</button>
+        </form>
     </div>
 </nav>
