@@ -57,7 +57,7 @@ public class CartController {
         if (cartPage != null) {
             return "redirect:/cart/view";
         }
-
+        
         return "cart_view";
     }
 

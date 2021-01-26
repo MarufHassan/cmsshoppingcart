@@ -9,52 +9,83 @@
         <div class="row">
             <div th:replace="/fragments/categories"></div>
             <div class="col"></div>
-                <div class="col-7">
-                    <h2 class="display-4">Cart Overview</h2>
-                    <table class="table">
-                        <tr>
-                            <th>Product</th>
-                            <th>Image</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                        </tr>
-                        <tr th:each="el: ${cart}">
-                            <td th:text="${el.value.name}"></td>
-                            <td>
-                                <img style="width: 100px;" th:src="@{'/media/' + ${el.value.image}}" alt="">
-                            </td>
-                            <td>
-                                <span th:text="${el.value.quantity}"></span>
-                                <a th:href="@{'/cart/add/' + ${el.value.id} + '?cartPage=true'}" class="btn btn-success btn-sm">+</a>
-                                <a th:href="@{'/cart/subtract/' + ${el.value.id}}" class="btn btn-primary btn-sm">-</a>
-                                <a th:href="@{'/cart/remove/' + ${el.value.id}}" class="btn btn-danger btn-sm">Remove</a>
-                            </td>
-                            <td th:text="'$' + ${el.value.price}"></td>
-                            <td th:with="formattedTotal=${el.value.price} * ${el.value.quantity}"
-                                th:text="'$' + ${#numbers.formatDecimal(formattedTotal, 0, 'COMMA', 2, 'POINT')}"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-right"><b>Grand Total</b></td>
-                            <td colspan="1" th:text="'$' + ${#numbers.formatDecimal(ctotal, 0, 'COMMA', 2, 'POINT')}"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="/cart/clear" class="btn btn-danger">Clear Cart</a>
-                            </td>
-                            <td colspan="4" class="text-right">
-                                <a href="#" class="btn btn-success checkout">Checkout</a>
-                            </td>
-                        </tr>
-                    </table>
+            <div class="col-7">
+                <div class="overlay text-center d-none">
+                    <h4 class="display-4">You are being redirected to paypal...</h4>
+                    <img src="/images/ajax-loader.gif" alt="">
                 </div>
-                <div class="col"></div>
+                <h2 class="display-4">Cart Overview</h2>
+                <table class="table">
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr th:each="el: ${cart}">
+                        <td th:text="${el.value.name}"></td>
+                        <td>
+                            <img style="width: 100px;" th:src="@{'/media/' + ${el.value.image}}" alt="">
+                        </td>
+                        <td>
+                            <span th:text="${el.value.quantity}"></span>
+                            <a th:href="@{'/cart/add/' + ${el.value.id} + '?cartPage=true'}"
+                                class="btn btn-success btn-sm">+</a>
+                            <a th:href="@{'/cart/subtract/' + ${el.value.id}}" class="btn btn-primary btn-sm">-</a>
+                            <a th:href="@{'/cart/remove/' + ${el.value.id}}" class="btn btn-danger btn-sm">Remove</a>
+                        </td>
+                        <td th:text="'$' + ${el.value.price}"></td>
+                        <td th:with="formattedTotal=${el.value.price} * ${el.value.quantity}"
+                            th:text="'$' + ${#numbers.formatDecimal(formattedTotal, 0, 'COMMA', 2, 'POINT')}"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right"><b>Grand Total</b></td>
+                        <td colspan="1" th:text="'$' + ${#numbers.formatDecimal(ctotal, 0, 'COMMA', 2, 'POINT')}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="/cart/clear" class="btn btn-danger">Clear Cart</a>
+                        </td>
+                        <td colspan="4" class="text-right">
+                            <a href="#" class="btn btn-success checkout">Checkout</a>
+                        </td>
+                    </tr>
+                </table>
             </div>
+            <div class="col"></div>
         </div>
 
-        <hr>
-    </div>
-    <div th:replace="/fragments/footer :: footer"></nav>
+        <div class="paypaldiv">
+            <form id="paypalform" action="https://www.sandbox.paypal.com/us/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_cart">
+                <input type="hidden" name="upload" value="1">
+                <input type="hidden" name="business" value="jultranet-facilitator@gmail.com">
+
+                <th:block th:each="el, iter : ${cart}">
+                    <input type="hidden" th:name="'item_name_' + ${iter.count}" th:value="${el.value.name}">
+                    <input type="hidden" th:name="'amount_' + ${iter.count}" th:value="${el.value.price}">
+                    <input type="hidden" th:name="'quantity_' + ${iter.count}" th:value="${el.value.quantity}">
+
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit"
+                        alt="Make payments with PayPal - it's fast, free and secure!">
+                </th:block>
+            </form>
+        </div>
+
+        <div th:replace="/fragments/footer :: footer"></div>
+
+        <script>
+            $(function () {
+                $("a.checkout").click(function (e) {
+                    e.preventDefault();
+                    $("div.overlay").removeClass("d-none");
+                    $.get("/cart/clear", {}, function () { });
+                    $("form#paypalform").submit();
+                });
+            });
+        </script>
 </body>
 
 </html>

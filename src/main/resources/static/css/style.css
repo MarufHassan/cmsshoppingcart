@@ -23,3 +23,19 @@ div.productAdded {
 .hide {
     display: none;
 }
+
+div.overlay {
+    position: absolute;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9)
+}
+
+div.overlay > img {
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+form#paypalform {
+    position: absolute;
+    left: -3000px;
+}

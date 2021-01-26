@@ -1,8 +1,6 @@
 package com.marufhassan.cmsshoppingcart.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.marufhassan.cmsshoppingcart.models.CategoryRepository;
 import com.marufhassan.cmsshoppingcart.models.ProductRepository;

@@ -42,7 +42,7 @@
                                     class="page-link" th:text="${number+1}"></a>
                             </li>
                             <li class="page-item" th:if="${page < pageCount - 1}">
-                                <a th:href="@{${#httpServletRequest.requestURI}} + '?page=__${page - 1}__'"
+                                <a th:href="@{${#httpServletRequest.requestURI}} + '?page=__${page + 1}__'"
                                     class="page-link">Next</a>
                             </li>
                         </ul>
@@ -50,8 +50,7 @@
                 </div>
             </div>
         </div>
-
-        <hr>
+        
     </div>
     <div th:replace="/fragments/footer :: footer"></div>
 
@@ -63,7 +62,8 @@
             let id = $this.attr('data-id');
             let url = "/cart/add/" + id;
 
-            $.get(url, {}, function(data) {
+            $.get(url, function(data) {
+                console.log(data);
                 $('div.cart').html(data);
             }).done(function() {
                 $this.parent().parent().find('div.productAdded').fadeIn();
