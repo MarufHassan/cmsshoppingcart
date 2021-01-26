@@ -30,17 +30,18 @@
                         <div class="form-group mb-3">
                             <label for="">Confirm Password</label>
                             <input type="password" class="form-control" th:field="*{confirmPassword}"></input>
+                            <span class="error" th:if="${passwordMatchProblem}">Password do not match</span>
                             
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Email</label>
-                            <input type="email" class="form-control" th:field="*{email}" placeholder="Email"></input>
+                            <input type="email" class="form-control" th:field="*{email}" placeholder="Email" required></input>
                             <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Phone number</label>
-                            <input type="email" class="form-control" th:field="*{phoneNumber}" placeholder="Phone Number"></input>
+                            <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="Phone Number"></input>
                             <span class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
                         </div>
                         <button class="btn btn-danger mb-3">Register</button>
