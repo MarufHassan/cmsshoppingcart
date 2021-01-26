@@ -1,5 +1,6 @@
 package com.marufhassan.cmsshoppingcart;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,11 @@ public class Common {
     private CategoryRepository categoryRepo;
 
     @ModelAttribute
-    public void sharedData(Model model, HttpSession session) {
+    public void sharedData(Model model, HttpSession session, Principal principal) {
+        if (principal != null) {
+            model.addAttribute("principal", principal.getName());
+        }
+
         List<Page> pages = pageRepo.findAllByOrderBySortingAsc();
         List<Category> categories = categoryRepo.findAll();
 
