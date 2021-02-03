@@ -1,0 +1,41 @@
+span.error {
+    color: red !important;
+}
+
+table.sorting tr:not(.home) {
+    cursor:pointer;
+}
+
+.ui-state-highlight {
+    border: 1px dashed #ccc;
+}
+
+.ck.ck-content {
+    height: 200px;
+}
+
+div.productAdded {
+    position: absolute;
+    bottom: 5px;
+    left: 110px;
+}
+
+.hide {
+    display: none;
+}
+
+div.overlay {
+    position: absolute;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9)
+}
+
+div.overlay > img {
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+form#paypalform {
+    position: absolute;
+    left: -3000px;
+}

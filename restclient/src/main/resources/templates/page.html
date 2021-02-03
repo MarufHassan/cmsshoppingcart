@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <nav th:replace="/fragments/nav :: nav-front"></nav>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div th:replace="/fragments/categories"></div>
+            <div class="col">
+                <div class="col-7" th:utext="${page.content}"></div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></div>
+</body>
+
+</html>
