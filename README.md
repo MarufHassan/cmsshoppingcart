@@ -44,6 +44,7 @@ Database Setup
 Database Configuration in Spring Boot
 -------------------------------------
 Change database connection config in 
+
 `cmsshoppingcart/src/main/resources/application.properties`
 
 `restapi/src/main/resources/application.properties`
@@ -65,6 +66,6 @@ Project Setup
 
 ## Project Demo Video
 
-[![Watch the video](https://img.youtube.com/vi/YW9-ykPaTeE/3.jpg)](https://youtu.be/YW9-ykPaTeE)
+<a href="https://youtu.be/YW9-ykPaTeE"><img src="https://img.youtube.com/vi/YW9-ykPaTeE/0.jpg" width="500"/></a>
 
-I made this apps as part of the course https://www.udemy.com/course/spring-and-spring-boot-learn-by-bulding-projects
+** I made this apps as part of the course https://www.udemy.com/course/spring-and-spring-boot-learn-by-bulding-projects
